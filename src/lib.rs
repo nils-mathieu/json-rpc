@@ -13,6 +13,9 @@ pub use self::request::*;
 mod response;
 pub use self::response::*;
 
+mod batch;
+pub use self::batch::*;
+
 #[cfg(feature = "unknown_params")]
 mod unknown_params;
 #[cfg(feature = "unknown_params")]
