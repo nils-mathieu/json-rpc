@@ -8,7 +8,7 @@ use serde::ser::{Serialize, Serializer};
 /// JSON-RPC 2.0 clients can use this to match responses sent back by a complying server
 /// with the request they sent. This is especially useful when sending multiple requests
 /// at the same time without waiting for a response in between.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Id<'a> {
     /// The ID was `null`.
     Null,
