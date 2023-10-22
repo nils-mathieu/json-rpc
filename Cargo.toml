@@ -1,6 +1,6 @@
 [package]
 name = "jsonrpc-sys"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Nils Mathieu <contect@nils-mathieu.fr>"]
 description = "JSON-RPC 2.0 types."
 license = "MIT"

@@ -44,6 +44,19 @@ where
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ErrorCode(pub i64);
 
+impl ErrorCode {
+    /// The error code returned when the server cannot parsed the request.
+    pub const PARSE_ERROR: ErrorCode = ErrorCode(-32700);
+    /// The error code returned when the request is not a valid JSON-RPC 2.0 request.
+    pub const INVALID_REQUEST: ErrorCode = ErrorCode(-32600);
+    /// The error code returned when the method does not exist.
+    pub const METHOD_NOT_FOUND: ErrorCode = ErrorCode(-32601);
+    /// The error code returned when the parameters are invalid.
+    pub const INVALID_PARAMS: ErrorCode = ErrorCode(-32602);
+    /// The error code returned when an internal error occurs.
+    pub const INTERNAL_ERROR: ErrorCode = ErrorCode(-32603);
+}
+
 /// A JSON-RPC 2.0 error.
 #[derive(Debug, Clone)]
 pub struct Error<'a, E> {
