@@ -9,7 +9,9 @@ readme = "README.md"
 edition = "2021"
 
 [features]
+default = ["utils"]
 unknown_params = ["dep:serde_json", "serde_json/raw_value"]
+utils = ["dep:serde_json"]
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
