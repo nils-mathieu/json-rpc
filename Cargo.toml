@@ -6,6 +6,7 @@ description = "JSON-RPC 2.0 types."
 license = "MIT"
 repository = "https://github.com/nils-mathieu/jsonrpc-sys"
 readme = "README.md"
+edition = "2021"
 
 [features]
 unknown_params = ["dep:serde_json", "serde_json/raw_value"]
