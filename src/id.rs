@@ -28,6 +28,48 @@ pub enum Id<'a> {
     Float(f64),
 }
 
+impl<'a> From<i64> for Id<'a> {
+    #[inline(always)]
+    fn from(id: i64) -> Self {
+        Self::Int(id)
+    }
+}
+
+impl<'a> From<u64> for Id<'a> {
+    #[inline(always)]
+    fn from(id: u64) -> Self {
+        Self::Uint(id)
+    }
+}
+
+impl<'a> From<f64> for Id<'a> {
+    #[inline(always)]
+    fn from(id: f64) -> Self {
+        Self::Float(id)
+    }
+}
+
+impl<'a> From<&'a str> for Id<'a> {
+    #[inline(always)]
+    fn from(id: &'a str) -> Self {
+        Self::Str(Cow::Borrowed(id))
+    }
+}
+
+impl<'a> From<String> for Id<'a> {
+    #[inline(always)]
+    fn from(id: String) -> Self {
+        Self::Str(Cow::Owned(id))
+    }
+}
+
+impl<'a> From<Cow<'a, str>> for Id<'a> {
+    #[inline(always)]
+    fn from(id: Cow<'a, str>) -> Self {
+        Self::Str(id)
+    }
+}
+
 impl<'a> Id<'a> {
     /// Reborrows this [`Id`], creating a new instance without reallocating.
     pub fn reborrow<'b>(&'b self) -> Id<'b>

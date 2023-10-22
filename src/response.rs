@@ -57,6 +57,20 @@ impl ErrorCode {
     pub const INTERNAL_ERROR: ErrorCode = ErrorCode(-32603);
 }
 
+impl From<i64> for ErrorCode {
+    #[inline(always)]
+    fn from(code: i64) -> Self {
+        Self(code)
+    }
+}
+
+impl From<ErrorCode> for i64 {
+    #[inline(always)]
+    fn from(code: ErrorCode) -> Self {
+        code.0
+    }
+}
+
 /// A JSON-RPC 2.0 error.
 #[derive(Debug, Clone)]
 pub struct Error<'a, E> {
