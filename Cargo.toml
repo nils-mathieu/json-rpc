@@ -1,5 +1,5 @@
 [package]
-name = "mini-jsonrpc"
+name = "jsonrpc-sys"
 version = "0.1.0"
 authors = ["Nils Mathieu <contect@nils-mathieu.fr>"]
 description = "JSON-RPC 2.0 types."
