@@ -67,7 +67,7 @@ struct IncomingRequest<'a, P> {
     #[serde(borrow)]
     method: Cow<'a, str>,
     params: P,
-    #[serde(borrow, default, skip_serializing_if = "Option::is_none")]
+    #[serde(borrow, default, deserialize_with = "deserialize_id")]
     id: Option<crate::Id<'a>>,
 }
 
@@ -90,4 +90,36 @@ impl<'a, P> IncomingRequest<'a, P> {
             id: self.id,
         })
     }
+}
+
+/// Deserializes an `Id` from a JSON-RPC 2.0 request.
+///
+/// This deserialization function is useful to distinguish between a null id and no id
+/// specified in a request.
+fn deserialize_id<'de, D>(deserializer: D) -> Result<Option<crate::Id<'de>>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let opt = Option::deserialize(deserializer)?;
+
+    match opt {
+        Some(some) => Ok(some),
+        None => Ok(Some(Id::Null)),
+    }
+}
+
+#[test]
+#[cfg(test)]
+fn null_id() {
+    let request = r#"{"jsonrpc":"2.0","method":"","id":null}"#;
+    let request: crate::Request<'_, Option<()>> = serde_json::from_str(request).unwrap();
+    assert_eq!(request.id, Some(Id::Null));
+}
+
+#[test]
+#[cfg(test)]
+fn no_id() {
+    let request = r#"{"jsonrpc":"2.0","method":""}"#;
+    let request: crate::Request<'_, Option<()>> = serde_json::from_str(request).unwrap();
+    assert_eq!(request.id, None);
 }
